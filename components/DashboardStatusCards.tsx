@@ -1,0 +1,58 @@
+"use client";
+
+import { BarChart3, Play, Settings, Trophy } from "lucide-react";
+
+export default function DashboardStatusCards() {
+  return (
+    <section className="grid gap-6 lg:grid-cols-3">
+      <article className="rounded-[1rem] border-l-4 border-[#2d5a3f] bg-white p-6 shadow-[0_16px_40px_rgba(64,81,59,0.12)]">
+        <div className="flex items-start justify-between">
+          <p className="text-xs font-bold uppercase tracking-[0.28em] text-[#6e8b77]">
+            Current rank
+          </p>
+          <Trophy className="h-5 w-5 text-[#caa33b]" aria-hidden="true" />
+        </div>
+        <h3 className="mt-6 text-2xl font-semibold text-[#1f2c1c]">Junior</h3>
+        <p className="mt-2 text-sm text-[#6b7a66]">Top 15% of new learners</p>
+      </article>
+
+      <article className="rounded-[1rem] border-l-4 border-[#caa33b] bg-white p-6 shadow-[0_16px_40px_rgba(64,81,59,0.12)]">
+        <div className="flex items-start justify-between">
+          <p className="text-xs font-bold uppercase tracking-[0.28em] text-[#6e8b77]">
+            Mastery status
+          </p>
+          <BarChart3 className="h-5 w-5 text-[#4b6b55]" aria-hidden="true" />
+        </div>
+        <div className="mt-6 flex items-baseline gap-2">
+          <span className="text-3xl font-semibold text-[#1f2c1c]">1/4</span>
+          <span className="text-sm text-[#6b7a66]">Domains Mastered</span>
+        </div>
+        <div className="mt-4 h-2 w-full rounded-full bg-[#e6ece0]">
+          <div className="h-2 w-1/4 rounded-full bg-[#3f6a47]" />
+        </div>
+      </article>
+
+      <article className="relative overflow-hidden rounded-[1rem] bg-[#2d5a3f] p-6 text-white shadow-[0_16px_40px_rgba(64,81,59,0.18)]">
+        <Settings
+          className="absolute -bottom-4 -right-6 h-24 w-24 text-white/12"
+          aria-hidden="true"
+        />
+        <div className="relative">
+          <p className="text-xs font-bold uppercase tracking-[0.28em] text-white/70">
+            Next step
+          </p>
+          <h3 className="mt-6 text-2xl font-semibold">
+            Mastering Conflict Resolution
+          </h3>
+          <button
+            type="button"
+            className="mt-6 inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold text-[#2d5a3f]"
+          >
+            Resume
+            <Play className="h-4 w-4" aria-hidden="true" />
+          </button>
+        </div>
+      </article>
+    </section>
+  );
+}
