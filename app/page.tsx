@@ -1,5 +1,6 @@
 import DashboardStatusCards from "../components/DashboardStatusCards";
 import Header from "../components/Header";
+import LearningGallery from "../components/LearningGallery";
 import ScenarioSelectionTable from "../components/ScenarioSelectionTable";
 
 export default function Home() {
@@ -21,6 +22,9 @@ export default function Home() {
         <DashboardStatusCards />
         <div className="mt-10">
           <ScenarioSelectionTable />
+        </div>
+        <div className="mt-10">
+          <LearningGallery />
         </div>
       </main>
     </div>
