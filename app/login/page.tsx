@@ -49,7 +49,7 @@ export default function LoginPage() {
 
           <div className="relative z-10 max-w-xl animate-rise-in">
             <div className="flex items-center justify-center text-[#40513b]">
-              <span className="flex h-11 w-11 items-center justify-center rounded-full bg-[#f6f9e7] shadow-sm">
+              <span className="flex h-11 w-11 items-center justify-center rounded-full">
                 <svg
                   width="43"
                   height="43"
