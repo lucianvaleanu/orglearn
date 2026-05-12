@@ -4,7 +4,7 @@ type ApiRequestOptions = {
   body?: Record<string, unknown>;
 };
 
-type ApiError = Error & {
+export type ApiError = Error & {
   status?: number;
   details?: unknown;
 };

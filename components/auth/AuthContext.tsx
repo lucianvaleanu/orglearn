@@ -11,7 +11,7 @@ import {
 import { apiRequest } from "../../lib/apiClient";
 
 type User = {
-  id: number;
+  id: string;
   name: string;
   email: string;
   current_rank?: string | null;
