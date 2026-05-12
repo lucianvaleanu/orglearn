@@ -1,8 +1,60 @@
 "use client";
 
+import { useEffect, useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
 import { BarChart3, Play, Settings, Trophy } from "lucide-react";
+import { apiRequest } from "../lib/apiClient";
+import { useAuth } from "./auth/AuthContext";
+
+type StatsPayload = {
+  currentRank: string;
+  overallProgressPercentage: number;
+};
+
+type StatsResponse = {
+  data: StatsPayload;
+};
 
 export default function DashboardStatusCards() {
+  const { token } = useAuth();
+  const router = useRouter();
+  const [stats, setStats] = useState<StatsPayload | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    if (!token) {
+      setIsLoading(false);
+      router.replace("/login");
+      return;
+    }
+
+    const loadStats = async () => {
+      try {
+        const response = await apiRequest<StatsResponse>("/api/user/stats", {
+          token,
+        });
+        setStats(response.data);
+      } catch (error) {
+        const status = error instanceof Error && "status" in error ? Number(error.status) : 0;
+        if (status === 401) {
+          router.replace("/login");
+        }
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadStats();
+  }, [token, router]);
+
+  const progressPercentage = useMemo(() => {
+    if (!stats) {
+      return 0;
+    }
+
+    return Math.max(0, Math.min(100, stats.overallProgressPercentage));
+  }, [stats]);
+
   return (
     <section className="grid gap-6 lg:grid-cols-3">
       <article className="rounded-[1rem] border-l-4 border-[#2d5a3f] bg-white p-6 shadow-[0_16px_40px_rgba(64,81,59,0.12)]">
@@ -12,8 +64,12 @@ export default function DashboardStatusCards() {
           </p>
           <Trophy className="h-5 w-5 text-[#caa33b]" aria-hidden="true" />
         </div>
-        <h3 className="mt-6 text-2xl font-semibold text-[#1f2c1c]">Junior</h3>
-        <p className="mt-2 text-sm text-[#6b7a66]">Top 15% of new learners</p>
+        <h3 className="mt-6 text-2xl font-semibold text-[#1f2c1c]">
+          {isLoading ? "Loading..." : stats?.currentRank ?? "-"}
+        </h3>
+        <p className="mt-2 text-sm text-[#6b7a66]">
+          {isLoading ? "Fetching rank" : "Keep pushing to unlock the next level"}
+        </p>
       </article>
 
       <article className="rounded-[1rem] border-l-4 border-[#caa33b] bg-white p-6 shadow-[0_16px_40px_rgba(64,81,59,0.12)]">
@@ -24,11 +80,16 @@ export default function DashboardStatusCards() {
           <BarChart3 className="h-5 w-5 text-[#4b6b55]" aria-hidden="true" />
         </div>
         <div className="mt-6 flex items-baseline gap-2">
-          <span className="text-3xl font-semibold text-[#1f2c1c]">1/4</span>
-          <span className="text-sm text-[#6b7a66]">Domains Mastered</span>
+          <span className="text-3xl font-semibold text-[#1f2c1c]">
+            {isLoading ? "--" : `${progressPercentage}%`}
+          </span>
+          <span className="text-sm text-[#6b7a66]">Overall Progress</span>
         </div>
         <div className="mt-4 h-2 w-full rounded-full bg-[#e6ece0]">
-          <div className="h-2 w-1/4 rounded-full bg-[#3f6a47]" />
+          <div
+            className="h-2 rounded-full bg-[#3f6a47]"
+            style={{ width: `${progressPercentage}%` }}
+          />
         </div>
       </article>
 

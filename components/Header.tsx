@@ -10,7 +10,7 @@ export default function Header() {
     <header className="border-b border-[#d6dfc9] bg-[#f8faf3]">
       <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-4">
         <div className="text-base font-semibold tracking-[0.08em] text-[#40513b]">
-          Skill Lab
+          OrgLearn
         </div>
         <nav className="hidden items-center gap-8 text-sm font-medium text-[#586856] md:flex">
           <Link href="/" className="transition hover:text-[#40513b]">
@@ -18,9 +18,6 @@ export default function Header() {
           </Link>
           <Link href="/" className="transition hover:text-[#40513b]">
             Resources
-          </Link>
-          <Link href="/" className="transition hover:text-[#40513b]">
-            Pricing
           </Link>
           <Link href="/" className="transition hover:text-[#40513b]">
             Contact
