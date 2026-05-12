@@ -6,8 +6,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useAuth } from "../../components/auth/AuthContext";
 
-export default function SignupPage() {
-  const { signup } = useAuth();
+export default function LoginPage() {
+  const { login } = useAuth();
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -17,24 +17,23 @@ export default function SignupPage() {
     setError(null);
 
     const formData = new FormData(event.currentTarget);
-    const name = String(formData.get("name") || "").trim();
     const email = String(formData.get("email") || "").trim();
     const password = String(formData.get("password") || "").trim();
 
-    if (!name || !email || !password) {
-      setError("Please fill in your name, email, and password.");
+    if (!email || !password) {
+      setError("Please enter your email and password.");
       return;
     }
 
     try {
       setIsSubmitting(true);
-      await signup({ name, email, password });
+      await login({ email, password });
       router.push("/");
-    } catch (signupError) {
+    } catch (loginError) {
       const message =
-        signupError instanceof Error
-          ? signupError.message
-          : "Unable to create your account.";
+        loginError instanceof Error
+          ? loginError.message
+          : "Unable to sign in.";
       setError(message);
     } finally {
       setIsSubmitting(false);
@@ -68,11 +67,11 @@ export default function SignupPage() {
             </div>
 
             <h1 className="mt-8 text-3xl font-semibold leading-tight text-[#40513b] sm:text-4xl">
-              Start your learning journey
+              Welcome back to OrgLearn
             </h1>
             <p className="mt-4 max-w-md text-base leading-7 text-[#4a5c45]">
-              Create a personal learning space that keeps your goals focused and
-              your progress visible.
+              Pick up right where you left off and keep your learning streak
+              strong.
             </p>
           </div>
 
@@ -95,10 +94,10 @@ export default function SignupPage() {
           <div className="relative z-10 w-full max-w-md">
             <div className="animate-rise-in" style={{ animationDelay: "80ms" }}>
               <h2 className="text-3xl font-semibold text-[#40513b]">
-                Create your account
+                Sign in
               </h2>
               <p className="mt-2 text-sm text-[#5c6c57]">
-                Set up your profile and continue growing with OrgLearn.
+                Enter your details to access your learning dashboard.
               </p>
             </div>
 
@@ -107,21 +106,6 @@ export default function SignupPage() {
               style={{ animationDelay: "160ms" }}
               onSubmit={handleSubmit}
             >
-              <label className="block">
-                <span className="text-xs font-semibold uppercase tracking-[0.22em] text-[#60725c]">
-                  Full name
-                </span>
-                <div className="mt-2 flex items-center gap-3 rounded-2xl border border-[#d0dcc3] bg-white px-4 py-3 shadow-sm">
-                  <input
-                    type="text"
-                    name="name"
-                    placeholder="Your full name"
-                    required
-                    className="w-full bg-transparent text-sm text-[#3d4a38] placeholder:text-[#9aa792] focus:outline-none"
-                  />
-                </div>
-              </label>
-
               <label className="block">
                 <span className="text-xs font-semibold uppercase tracking-[0.22em] text-[#60725c]">
                   Email address
@@ -145,19 +129,11 @@ export default function SignupPage() {
                   <input
                     type="password"
                     name="password"
-                    placeholder="Create a password"
+                    placeholder="Your password"
                     required
                     className="w-full bg-transparent text-sm text-[#3d4a38] placeholder:text-[#9aa792] focus:outline-none"
                   />
                 </div>
-              </label>
-
-              <label className="flex items-center gap-3 text-sm text-[#5b6a56]">
-                <input
-                  type="checkbox"
-                  className="h-4 w-4 rounded border-[#c3d1b4] text-[#609966] accent-[#609966]"
-                />
-                I agree to the terms and privacy policy
               </label>
 
               {error ? (
@@ -171,15 +147,15 @@ export default function SignupPage() {
                 disabled={isSubmitting}
                 className="w-full rounded-2xl bg-[#40513b] px-5 py-3 text-sm font-semibold text-[#f4f7e6] shadow-[0_16px_30px_rgba(64,81,59,0.28)] transition hover:-translate-y-0.5 hover:bg-[#334129]"
               >
-                {isSubmitting ? "Creating account..." : "Create account"}
+                {isSubmitting ? "Signing in..." : "Sign in"}
               </button>
             </form>
 
             <div className="mt-8 animate-rise-in" style={{ animationDelay: "240ms" }}>
               <p className="text-center text-sm text-[#5c6c57]">
-                Already have an account?{" "}
-                <Link href="/login" className="font-semibold text-[#609966]">
-                  Sign in
+                New to OrgLearn?{" "}
+                <Link href="/signup" className="font-semibold text-[#609966]">
+                  Create an account
                 </Link>
               </p>
 
