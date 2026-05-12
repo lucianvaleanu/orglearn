@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { BarChart3, Play, Settings, Trophy } from "lucide-react";
 import { apiRequest } from "../lib/apiClient";
 import { useAuth } from "./auth/AuthContext";
@@ -15,11 +16,24 @@ type StatsResponse = {
   data: StatsPayload;
 };
 
+type NextStepPayload = {
+  scenarioId: string;
+  scenarioTitle: string;
+  status: string;
+};
+
+type NextStepResponse = {
+  data: NextStepPayload | null;
+};
+
 export default function DashboardStatusCards() {
   const { token } = useAuth();
   const router = useRouter();
   const [stats, setStats] = useState<StatsPayload | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [nextStep, setNextStep] = useState<NextStepPayload | null>(null);
+  const [isNextStepLoading, setIsNextStepLoading] = useState(true);
+  const [nextStepError, setNextStepError] = useState(false);
 
   useEffect(() => {
     if (!token) {
@@ -45,6 +59,35 @@ export default function DashboardStatusCards() {
     };
 
     loadStats();
+  }, [token, router]);
+
+  useEffect(() => {
+    if (!token) {
+      setIsNextStepLoading(false);
+      return;
+    }
+
+    const loadNextStep = async () => {
+      try {
+        setNextStepError(false);
+        const response = await apiRequest<NextStepResponse>("/api/user/next-step", {
+          token,
+        });
+        setNextStep(response.data ?? null);
+      } catch (error) {
+        const status = error instanceof Error && "status" in error ? Number(error.status) : 0;
+        if (status === 401) {
+          router.replace("/login");
+          return;
+        }
+        setNextStep(null);
+        setNextStepError(true);
+      } finally {
+        setIsNextStepLoading(false);
+      }
+    };
+
+    loadNextStep();
   }, [token, router]);
 
   const progressPercentage = useMemo(() => {
@@ -102,16 +145,41 @@ export default function DashboardStatusCards() {
           <p className="text-xs font-bold uppercase tracking-[0.28em] text-white/70">
             Next step
           </p>
-          <h3 className="mt-6 text-2xl font-semibold">
-            Mastering Conflict Resolution
-          </h3>
-          <button
-            type="button"
-            className="mt-6 inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold text-[#2d5a3f]"
-          >
-            Resume
-            <Play className="h-4 w-4" aria-hidden="true" />
-          </button>
+          {isNextStepLoading ? (
+            <div className="mt-6 space-y-4 animate-pulse">
+              <div className="h-6 w-3/4 rounded-full bg-white/20" />
+              <div className="h-9 w-32 rounded-full bg-white/25" />
+            </div>
+          ) : nextStep ? (
+            <>
+              <h3 className="mt-6 text-2xl font-semibold">
+                {nextStep.scenarioTitle}
+              </h3>
+              <Link
+                href={`/scenarios/${nextStep.scenarioId}`}
+                className="mt-6 inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold text-[#2d5a3f]"
+              >
+                {nextStep.status === "in_progress" ? "Resume" : "Start"}
+                <Play className="h-4 w-4" aria-hidden="true" />
+              </Link>
+            </>
+          ) : (
+            <>
+              <h3 className="mt-6 text-2xl font-semibold">Browse Scenarios</h3>
+              <p className="mt-3 text-sm text-white/70">
+                {nextStepError
+                  ? "We could not load your next step right now."
+                  : "No next step is available yet."}
+              </p>
+              <Link
+                href="/"
+                className="mt-6 inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold text-[#2d5a3f]"
+              >
+                Browse Scenarios
+                <Play className="h-4 w-4" aria-hidden="true" />
+              </Link>
+            </>
+          )}
         </div>
       </article>
     </section>
