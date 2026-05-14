@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { BarChart3, Play, Settings, Trophy } from "lucide-react";
 import { apiRequest } from "../lib/apiClient";
@@ -29,6 +29,8 @@ type NextStepResponse = {
 export default function DashboardStatusCards() {
   const { token } = useAuth();
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const refreshKey = searchParams.get("refresh");
   const [stats, setStats] = useState<StatsPayload | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [nextStep, setNextStep] = useState<NextStepPayload | null>(null);
@@ -59,7 +61,7 @@ export default function DashboardStatusCards() {
     };
 
     loadStats();
-  }, [token, router]);
+  }, [token, router, refreshKey]);
 
   useEffect(() => {
     if (!token) {
@@ -88,7 +90,7 @@ export default function DashboardStatusCards() {
     };
 
     loadNextStep();
-  }, [token, router]);
+  }, [token, router, refreshKey]);
 
   const progressPercentage = useMemo(() => {
     if (!stats) {

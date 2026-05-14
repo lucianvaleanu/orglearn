@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Play, Settings } from "lucide-react";
+import { ArrowLeft, Play, RotateCcw } from "lucide-react";
 import { apiRequest } from "../lib/apiClient";
 import { useAuth } from "./auth/AuthContext";
 
@@ -55,6 +55,13 @@ type AttemptCompleteResponse = {
   };
 };
 
+type StatsResponse = {
+  data: {
+    currentRank: string;
+    overallProgressPercentage: number;
+  };
+};
+
 type ScenarioPlayerProps = {
   scenarioId: string;
 };
@@ -99,6 +106,7 @@ export default function ScenarioPlayer({ scenarioId }: ScenarioPlayerProps) {
   const [attemptId, setAttemptId] = useState<string | null>(null);
   const [isAttemptLoading, setIsAttemptLoading] = useState(false);
   const [nextScenarioId, setNextScenarioId] = useState<string | null>(null);
+  const isComplete = phase === "complete";
 
   const steps = useMemo<ScenarioStep[]>(() => {
     if (!scenario?.content_data) {
@@ -369,6 +377,7 @@ export default function ScenarioPlayer({ scenarioId }: ScenarioPlayerProps) {
 
     if (token) {
       try {
+        await apiRequest<StatsResponse>("/api/user/stats", { token });
         const response = await apiRequest<NextStepResponse>("/api/user/next-step", {
           token,
         });
@@ -379,15 +388,9 @@ export default function ScenarioPlayer({ scenarioId }: ScenarioPlayerProps) {
     }
   };
 
-  const resetScenario = () => {
-    setPhase("challenge");
-    setStepIndex(0);
-    setSelectedOptions(Array(steps.length).fill(null));
-    setTextResponses(Array(steps.length).fill(""));
-    setAnswerResults(Array(steps.length).fill(null));
-    setAttemptId(null);
-    setNextScenarioId(null);
+  const handleBackToDashboard = () => {
     window.localStorage.removeItem(getProgressKey(scenarioId));
+    router.push("/?refresh=1");
   };
 
   const takeaways = useMemo(() => {
@@ -452,44 +455,55 @@ export default function ScenarioPlayer({ scenarioId }: ScenarioPlayerProps) {
     <div className="min-h-screen bg-[#edf1d6] px-6 py-10">
       <div className="mx-auto max-w-6xl">
         <div className="mb-4 flex flex-wrap items-center justify-between gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#6b7a66]">
-          <div>
-            Domain: {stripCitations(scenario.domain)} | Scenario: {stripCitations(scenario.title)}
+          <div className="flex flex-wrap items-center gap-2">
+            <span>Domain:</span>
+            <span className="font-extrabold text-[#1f2c1c]">
+              {stripCitations(scenario.domain)}
+            </span>
+            <span>|</span>
+            <span>Scenario:</span>
+            <span className="font-extrabold text-[#1f2c1c]">
+              {stripCitations(scenario.title)}
+            </span>
           </div>
           <div>
             Progress: Step {Math.min(stepIndex + 1, totalSteps)} of {totalSteps}
           </div>
         </div>
 
-        <div className="grid gap-8 rounded-[1rem] border border-[#d9e2d0] bg-white p-8 shadow-[0_20px_50px_rgba(64,81,59,0.12)] lg:grid-cols-[1.15fr_0.85fr]">
-          <div
-            className={`space-y-6 transition-all duration-300 ${
-              phase === "feedback" ? "blur-sm opacity-60" : "blur-0 opacity-100"
-            }`}
-          >
-            <h1 className="text-2xl font-semibold text-[#1f2c1c] sm:text-3xl">
-              {stripCitations(scenario.title)}
-            </h1>
-            <div className="space-y-4 text-sm text-[#2f3d2c]">
-              <p>{stripCitations(currentStep.context)}</p>
-              {currentStep.model_response ? (
-                <p>{stripCitations(currentStep.model_response)}</p>
-              ) : null}
-              {currentStep.model_strategy ? (
-                <p>{stripCitations(currentStep.model_strategy)}</p>
-              ) : null}
-              {currentStep.actions_of_the_first_month ? (
-                <p>{stripCitations(currentStep.actions_of_the_first_month)}</p>
-              ) : null}
+        <div
+          className={`grid gap-8 rounded-[1rem] border border-[#d9e2d0] bg-white p-8 shadow-[0_20px_50px_rgba(64,81,59,0.12)] ${
+            isComplete ? "lg:grid-cols-1" : "lg:grid-cols-[1.35fr_0.65fr]"
+          }`}
+        >
+          {!isComplete ? (
+            <div
+              className={`space-y-6 transition-all duration-300 ${
+                phase === "feedback" ? "blur-sm opacity-60" : "blur-0 opacity-100"
+              }`}
+            >
+              <h1 className="text-2xl font-semibold text-[#1f2c1c] sm:text-3xl">
+                {stripCitations(scenario.title)}
+              </h1>
+              <div className="space-y-4 text-sm text-[#2f3d2c]">
+                <p>{stripCitations(currentStep.context)}</p>
+                {currentStep.model_response ? (
+                  <p>{stripCitations(currentStep.model_response)}</p>
+                ) : null}
+                {currentStep.model_strategy ? (
+                  <p>{stripCitations(currentStep.model_strategy)}</p>
+                ) : null}
+                {currentStep.actions_of_the_first_month ? (
+                  <p>{stripCitations(currentStep.actions_of_the_first_month)}</p>
+                ) : null}
+              </div>
+              <div className="rounded-[0.75rem] bg-[#f3f4f1] p-4 text-sm font-semibold text-[#2d5a3f]">
+                {stripCitations(currentStep.question)}
+              </div>
             </div>
-            <div className="rounded-[0.75rem] bg-[#f3f4f1] p-4 text-sm font-semibold text-[#2d5a3f]">
-              {stripCitations(currentStep.question)}
-            </div>
-          </div>
+          ) : null}
 
-          <div className="relative">
-            <div className="absolute -top-8 right-0 text-xs font-semibold uppercase tracking-[0.2em] text-[#6b7a66]">
-              {phase === "challenge" ? "Choose your path" : phase === "feedback" ? "Feedback" : "Outcome"}
-            </div>
+          <div className={`relative ${isComplete ? "lg:px-10" : ""}`}>
 
             {phase !== "complete" ? (
               <div className="flex h-full flex-col justify-between gap-6">
@@ -515,14 +529,18 @@ export default function ScenarioPlayer({ scenarioId }: ScenarioPlayerProps) {
                               return next;
                             })
                           }
-                          className={`flex w-full items-center justify-between rounded-[0.8rem] border px-4 py-3 text-left text-sm font-semibold transition ${
+                          className={`flex w-full min-w-0 items-start gap-3 overflow-hidden rounded-[0.8rem] border px-4 py-3 text-left text-sm font-semibold transition ${
                             isSelected
                               ? "border-[#2d5a3f] bg-[#e8f0df] text-[#2d5a3f]"
                               : "border-[#e4eadb] bg-[#f7f8f4] text-[#4a5c45] hover:border-[#cdd7c1]"
                           }`}
                         >
-                          <span>{stripCitations(option.text)}</span>
-                          <span className="ml-4 text-xs text-[#7a8b73]">Option {String.fromCharCode(65 + index)}</span>
+                          <span className="shrink-0 whitespace-nowrap rounded-full bg-white/80 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#2d5a3f]">
+                            OPTION {String.fromCharCode(65 + index)}
+                          </span>
+                          <span className="min-w-0 flex-1 text-[#2f3d2c]">
+                            {stripCitations(option.text)}
+                          </span>
                         </button>
                       );
                     })
@@ -564,8 +582,8 @@ export default function ScenarioPlayer({ scenarioId }: ScenarioPlayerProps) {
                 </div>
               </div>
             ) : (
-              <div className="flex h-full flex-col justify-between gap-6">
-                <div className="space-y-6">
+              <div className="flex h-full flex-col gap-6">
+                <div className="flex flex-1 flex-col gap-6">
                   <div className="text-center">
                     <div className="text-2xl font-semibold text-[#2d5a3f]">
                       Scenario Complete!
@@ -575,7 +593,7 @@ export default function ScenarioPlayer({ scenarioId }: ScenarioPlayerProps) {
                         <div
                           className="absolute inset-0 rounded-full"
                           style={{
-                            background: `conic-gradient(#6d8f61 ${score * 3.6}deg, #e6ece0 0deg)`,
+                            background: `conic-gradient(#2d5a3f ${score * 3.6}deg, #e6ece0 0deg)`,
                           }}
                         />
                         <div className="absolute inset-3 rounded-full bg-white" />
@@ -589,9 +607,9 @@ export default function ScenarioPlayer({ scenarioId }: ScenarioPlayerProps) {
                     </div>
                   </div>
 
-                  <div className="rounded-[0.8rem] border border-[#e4eadb] bg-[#f7f8f4] px-4 py-4">
+                  <div className="flex flex-1 flex-col rounded-[0.8rem] border border-[#e4eadb] bg-[#f7f8f4] px-4 py-4">
                     <p className="text-sm font-semibold text-[#2d5a3f]">Key Takeaways</p>
-                    <ul className="mt-3 space-y-2 text-sm text-[#3b4a36]">
+                    <ul className="mt-3 flex-1 space-y-2 text-sm text-[#3b4a36]">
                       {takeaways.length > 0 ? (
                         takeaways.map((takeaway) => (
                           <li key={takeaway}>{takeaway}</li>
@@ -603,14 +621,31 @@ export default function ScenarioPlayer({ scenarioId }: ScenarioPlayerProps) {
                   </div>
                 </div>
 
-                <div className="flex flex-wrap items-center justify-end gap-4">
+                <div className="flex flex-wrap items-center justify-between gap-4">
                   <button
                     type="button"
-                    onClick={resetScenario}
+                    onClick={handleBackToDashboard}
+                    className="inline-flex items-center gap-2 rounded-full border border-[#cdd7c1] px-4 py-2 text-sm font-semibold text-[#2d5a3f] transition hover:border-[#a6b79d]"
+                  >
+                    Back to Dashboard
+                    <ArrowLeft className="h-4 w-4" aria-hidden="true" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setPhase("challenge");
+                      setStepIndex(0);
+                      setSelectedOptions(Array(steps.length).fill(null));
+                      setTextResponses(Array(steps.length).fill(""));
+                      setAnswerResults(Array(steps.length).fill(null));
+                      setAttemptId(null);
+                      setNextScenarioId(null);
+                      window.localStorage.removeItem(getProgressKey(scenarioId));
+                    }}
                     className="inline-flex items-center gap-2 rounded-full border border-[#cdd7c1] px-4 py-2 text-sm font-semibold text-[#2d5a3f] transition hover:border-[#a6b79d]"
                   >
                     Try Again
-                    <Settings className="h-4 w-4" aria-hidden="true" />
+                    <RotateCcw className="h-4 w-4" aria-hidden="true" />
                   </button>
                   <Link
                     href={nextScenarioId ? `/scenarios/${nextScenarioId}` : "/"}
