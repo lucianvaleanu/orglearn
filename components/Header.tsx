@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useAuth } from "./auth/AuthContext";
 
 export default function Header() {
-  const { user, token, logout } = useAuth();
+  const { user, token, logout, isAdmin } = useAuth();
 
   return (
     <header className="border-b border-[#d6dfc9] bg-[#f8faf3]">
@@ -22,9 +22,19 @@ export default function Header() {
           <Link href="/" className="transition hover:text-[#40513b]">
             Contact
           </Link>
+          {isAdmin ? (
+            <Link href="/admin/questionnaires/new" className="transition hover:text-[#40513b]">
+              Add Questionnaire
+            </Link>
+          ) : null}
         </nav>
         {token ? (
           <div className="flex items-center gap-3">
+            {isAdmin ? (
+              <span className="hidden rounded-full border border-[#c6d6b8] bg-[#eef4e3] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#4f6a41] sm:inline">
+                Admin
+              </span>
+            ) : null}
             <span className="hidden text-sm font-medium text-[#586856] sm:inline">
               {user?.name ?? "Account"}
             </span>

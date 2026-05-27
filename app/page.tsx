@@ -1,4 +1,5 @@
 import DashboardStatusCards from "../components/DashboardStatusCards";
+import DashboardAdminAction from "../components/DashboardAdminAction";
 import Header from "../components/Header";
 import LearningGallery from "../components/LearningGallery";
 import ScenarioSelectionTable from "../components/ScenarioSelectionTable";
@@ -20,6 +21,7 @@ export default function Home() {
             <p className="mt-2 text-sm text-[#6b7a66]">
               Track your rank, mastery progress, and next steps at a glance.
             </p>
+            <DashboardAdminAction />
           </div>
           <DashboardStatusCards />
           <div className="mt-10">

@@ -102,7 +102,11 @@ export default function ScenarioSelectionTable() {
           router.replace("/login");
           return;
         }
-        setErrorMessage("Unable to load scenarios right now.");
+        if (status === 403) {
+          setErrorMessage("You do not have permission to view this scenario list.");
+        } else {
+          setErrorMessage("Unable to load scenarios right now.");
+        }
       } finally {
         setIsLoading(false);
       }

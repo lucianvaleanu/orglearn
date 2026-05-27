@@ -296,6 +296,9 @@ export default function ScenarioPlayer({ scenarioId }: ScenarioPlayerProps) {
             error instanceof Error && "status" in error ? Number(error.status) : 0;
           if (status === 401) {
             router.replace("/login");
+          } else if (status === 403) {
+            setScenarioError("You do not have permission to start this scenario.");
+            setScenario(null);
           }
         }
       } finally {
@@ -371,6 +374,8 @@ export default function ScenarioPlayer({ scenarioId }: ScenarioPlayerProps) {
           error instanceof Error && "status" in error ? Number(error.status) : 0;
         if (status === 401) {
           router.replace("/login");
+        } else if (status === 403) {
+          setScenarioError("You do not have permission to complete this scenario.");
         }
       }
     }

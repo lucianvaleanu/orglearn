@@ -33,9 +33,10 @@ export default function DashboardStatusCards() {
   const refreshKey = searchParams.get("refresh");
   const [stats, setStats] = useState<StatsPayload | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [statsError, setStatsError] = useState<string | null>(null);
   const [nextStep, setNextStep] = useState<NextStepPayload | null>(null);
   const [isNextStepLoading, setIsNextStepLoading] = useState(true);
-  const [nextStepError, setNextStepError] = useState(false);
+  const [nextStepError, setNextStepError] = useState<string | null>(null);
 
   useEffect(() => {
     if (!token) {
@@ -46,6 +47,7 @@ export default function DashboardStatusCards() {
 
     const loadStats = async () => {
       try {
+        setStatsError(null);
         const response = await apiRequest<StatsResponse>("/api/user/stats", {
           token,
         });
@@ -54,6 +56,10 @@ export default function DashboardStatusCards() {
         const status = error instanceof Error && "status" in error ? Number(error.status) : 0;
         if (status === 401) {
           router.replace("/login");
+          return;
+        }
+        if (status === 403) {
+          setStatsError("You do not have permission to view this progress summary.");
         }
       } finally {
         setIsLoading(false);
@@ -71,7 +77,7 @@ export default function DashboardStatusCards() {
 
     const loadNextStep = async () => {
       try {
-        setNextStepError(false);
+        setNextStepError(null);
         const response = await apiRequest<NextStepResponse>("/api/user/next-step", {
           token,
         });
@@ -83,7 +89,11 @@ export default function DashboardStatusCards() {
           return;
         }
         setNextStep(null);
-        setNextStepError(true);
+        if (status === 403) {
+          setNextStepError("You do not have permission to view the next step.");
+        } else {
+          setNextStepError("We could not load your next step right now.");
+        }
       } finally {
         setIsNextStepLoading(false);
       }
@@ -110,10 +120,14 @@ export default function DashboardStatusCards() {
           <Trophy className="h-5 w-5 text-[#caa33b]" aria-hidden="true" />
         </div>
         <h3 className="mt-6 text-2xl font-semibold text-[#1f2c1c]">
-          {isLoading ? "Loading..." : stats?.currentRank ?? "-"}
+          {isLoading ? "Loading..." : statsError ? "Unavailable" : stats?.currentRank ?? "-"}
         </h3>
         <p className="mt-2 text-sm text-[#6b7a66]">
-          {isLoading ? "Fetching rank" : "Keep pushing to unlock the next level"}
+          {isLoading
+            ? "Fetching rank"
+            : statsError
+              ? statsError
+              : "Keep pushing to unlock the next level"}
         </p>
       </article>
 
@@ -169,9 +183,7 @@ export default function DashboardStatusCards() {
             <>
               <h3 className="mt-6 text-2xl font-semibold">Browse Scenarios</h3>
               <p className="mt-3 text-sm text-white/70">
-                {nextStepError
-                  ? "We could not load your next step right now."
-                  : "No next step is available yet."}
+                {nextStepError ?? "No next step is available yet."}
               </p>
               <Link
                 href="/"

@@ -14,11 +14,14 @@ type User = {
   id: string;
   name: string;
   email: string;
+  role: "user" | "admin";
   current_rank?: string | null;
 };
 
 type AuthContextValue = {
   user: User | null;
+  role: "user" | "admin" | null;
+  isAdmin: boolean;
   token: string | null;
   isLoading: boolean;
   login: (payload: { email: string; password: string }) => Promise<void>;
@@ -117,6 +120,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const value = useMemo(
     () => ({
       user,
+      role: user?.role ?? null,
+      isAdmin: user?.role === "admin",
       token,
       isLoading,
       login,
