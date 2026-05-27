@@ -27,6 +27,7 @@ type ScenarioContent = ScenarioStep & {
 };
 
 type ScenarioData = {
+  id: string;
   domain: string;
   title: string;
   difficulty_level: number;
@@ -69,13 +70,13 @@ type ScenarioPlayerProps = {
 const stripCitations = (value?: string | null) =>
   value ? value.replace(/\s*\[cite:[^\]]+\]/g, "").trim() : "";
 
-const getScenarioIndex = (scenarioId: string, total: number) => {
-  let hash = 0;
-  for (let index = 0; index < scenarioId.length; index += 1) {
-    hash = (hash * 31 + scenarioId.charCodeAt(index)) % total;
-  }
-  return hash;
-};
+// const getScenarioIndex = (scenarioId: string, total: number) => {
+//   let hash = 0;
+//   for (let index = 0; index < scenarioId.length; index += 1) {
+//     hash = (hash * 31 + scenarioId.charCodeAt(index)) % total;
+//   }
+//   return hash;
+// };
 
 const getRankForScore = (score: number) => {
   if (score >= 90) {
@@ -157,8 +158,14 @@ export default function ScenarioPlayer({ scenarioId }: ScenarioPlayerProps) {
           setScenario(null);
           return;
         }
-        const selectedIndex = getScenarioIndex(scenarioId, data.length);
-        setScenario(data[selectedIndex]);
+        const matchedScenario = data.find((item) => item.id === scenarioId); // Use item.scenarioId if that's what your JSON uses
+
+          if (matchedScenario) {
+             setScenario(matchedScenario);
+          } else {
+                  setScenarioError("Scenario not found.");
+                  setScenario(null);
+          }
       } catch (error) {
         if (!isMounted) {
           return;
