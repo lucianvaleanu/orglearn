@@ -33,10 +33,6 @@ type ScenarioData = {
   content_data: ScenarioContent;
 };
 
-type ScenarioDetailResponse = {
-  data: ScenarioData | null;
-};
-
 type AttemptStartResponse = {
   data: {
     attemptId: string;
@@ -72,6 +68,14 @@ type ScenarioPlayerProps = {
 
 const stripCitations = (value?: string | null) =>
   value ? value.replace(/\s*\[cite:[^\]]+\]/g, "").trim() : "";
+
+const getScenarioIndex = (scenarioId: string, total: number) => {
+  let hash = 0;
+  for (let index = 0; index < scenarioId.length; index += 1) {
+    hash = (hash * 31 + scenarioId.charCodeAt(index)) % total;
+  }
+  return hash;
+};
 
 const getRankForScore = (score: number) => {
   if (score >= 90) {
@@ -140,35 +144,28 @@ export default function ScenarioPlayer({ scenarioId }: ScenarioPlayerProps) {
       try {
         setScenarioError(null);
         setIsScenarioLoading(true);
-        const response = await apiRequest<ScenarioDetailResponse>(
-          `/scenarios/${scenarioId}`,
-          { token }
-        );
+        const response = await fetch("/data/scenarios.json");
+        if (!response.ok) {
+          throw new Error("Unable to load scenarios.");
+        }
+        const data = (await response.json()) as ScenarioData[];
         if (!isMounted) {
           return;
         }
-        if (!response?.data) {
-          setScenarioError("Scenario not found.");
+        if (data.length === 0) {
+          setScenarioError("No scenarios available.");
           setScenario(null);
           return;
         }
-        setScenario(response.data);
+        const selectedIndex = getScenarioIndex(scenarioId, data.length);
+        setScenario(data[selectedIndex]);
       } catch (error) {
         if (!isMounted) {
           return;
         }
-        const status = error instanceof Error && "status" in error ? Number(error.status) : 0;
-        if (status === 401) {
-          router.replace("/login");
-          return;
-        }
-        if (status === 403) {
-          setScenarioError("You do not have permission to view this scenario.");
-        } else {
-          setScenarioError(
-            error instanceof Error ? error.message : "Unable to load scenario."
-          );
-        }
+        setScenarioError(
+          error instanceof Error ? error.message : "Unable to load scenario."
+        );
         setScenario(null);
       } finally {
         if (isMounted) {
@@ -177,14 +174,12 @@ export default function ScenarioPlayer({ scenarioId }: ScenarioPlayerProps) {
       }
     };
 
-    if (!isAuthLoading && token) {
-      loadScenario();
-    }
+    loadScenario();
 
     return () => {
       isMounted = false;
     };
-  }, [scenarioId, token, isAuthLoading, router]);
+  }, [scenarioId]);
 
   useEffect(() => {
     setAttemptId(null);
