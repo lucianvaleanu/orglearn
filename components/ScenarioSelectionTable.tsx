@@ -1,14 +1,14 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Star } from "lucide-react";
 import { apiRequest } from "../lib/apiClient";
 import { useAuth } from "./auth/AuthContext";
 
 type ScenarioRow = {
-  scenarioId: string;
+  scenarioId?: string;
+  id?: string;
   scenarioTitle: string;
   domainTitle: string | null;
   difficultyLevel: number;
@@ -19,6 +19,8 @@ type ScenarioRow = {
 type ScenarioSelectionResponse = {
   data: ScenarioRow[];
 };
+
+const getScenarioId = (scenario: ScenarioRow) => scenario.scenarioId ?? scenario.id ?? "";
 
 const getDifficultyLabel = (level: number) => {
   if (level === 1) {
@@ -95,7 +97,7 @@ export default function ScenarioSelectionTable() {
           `/scenarios/selection/${user.id}`,
           { token }
         );
-        setScenarios(response.data || []);
+        setScenarios((response.data || []).filter((scenario) => getScenarioId(scenario)));
       } catch (error) {
         const status = error instanceof Error && "status" in error ? Number(error.status) : 0;
         if (status === 401) {
@@ -133,6 +135,10 @@ export default function ScenarioSelectionTable() {
     return scenarios.slice(startIndex, endIndex);
   }, [scenarios, currentPage, pageSize]);
 
+  const handleScenarioOpen = (scenarioId: string) => {
+    router.push(`/scenarios/${scenarioId}?clickedScenarioId=${encodeURIComponent(scenarioId)}`);
+  };
+
   return (
     <section className="rounded-[1rem] border border-[#d9e2d0] bg-white shadow-[0_20px_50px_rgba(64,81,59,0.12)]">
       <div className="grid grid-cols-[2.2fr_minmax(180px,1.2fr)_1.2fr_0.8fr] gap-4 rounded-t-[1rem] bg-[#f3f4f1] px-6 py-3 text-[11px] font-bold uppercase tracking-[0.28em] text-[#6a7a66]">
@@ -151,33 +157,39 @@ export default function ScenarioSelectionTable() {
             No scenarios available yet.
           </div>
         ) : (
-          pagedScenarios.map((scenario) => (
-            <div
-              key={scenario.scenarioId}
-              className="grid grid-cols-[2.2fr_minmax(180px,1.2fr)_1.2fr_0.8fr] items-center gap-4 px-6 py-4"
-            >
-              <div className="text-sm font-semibold text-[#1f2c1c]">
-                {scenario.scenarioTitle}
+          pagedScenarios.map((scenario) => {
+            const scenarioId = getScenarioId(scenario);
+
+            return (
+              <div
+                key={scenarioId}
+                className="grid grid-cols-[2.2fr_minmax(180px,1.2fr)_1.2fr_0.8fr] items-center gap-4 px-6 py-4"
+              >
+                <div className="text-sm font-semibold text-[#1f2c1c]">
+                  {scenario.scenarioTitle}
+                </div>
+                <div className="min-w-0">
+                  <span className="inline-block max-w-full overflow-hidden text-ellipsis whitespace-nowrap rounded-full bg-[#eef1ec] px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-[#2d5a3f]">
+                    {scenario.domainTitle ?? "General"}
+                  </span>
+                </div>
+                <div className="flex items-center gap-3 text-sm text-[#5e6d59]">
+                  <Stars count={getDifficultyStars(scenario.difficultyLevel)} />
+                  <span>{getDifficultyLabel(scenario.difficultyLevel)}</span>
+                </div>
+                <div className="flex justify-end">
+                  <button
+                    type="button"
+                    onClick={() => handleScenarioOpen(scenarioId)}
+                    data-scenario-id={scenarioId}
+                    className="rounded-full bg-[#2d5a3f] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#234532]"
+                  >
+                    {scenario.action || "Start"}
+                  </button>
+                </div>
               </div>
-              <div className="min-w-0">
-                <span className="inline-block max-w-full overflow-hidden text-ellipsis whitespace-nowrap rounded-full bg-[#eef1ec] px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-[#2d5a3f]">
-                  {scenario.domainTitle ?? "General"}
-                </span>
-              </div>
-              <div className="flex items-center gap-3 text-sm text-[#5e6d59]">
-                <Stars count={getDifficultyStars(scenario.difficultyLevel)} />
-                <span>{getDifficultyLabel(scenario.difficultyLevel)}</span>
-              </div>
-              <div className="flex justify-end">
-                <Link
-                  href={`/scenarios/${scenario.scenarioId}`}
-                  className="rounded-full bg-[#2d5a3f] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#234532]"
-                >
-                  {scenario.action || "Start"}
-                </Link>
-              </div>
-            </div>
-          ))
+            );
+          })
         )}
       </div>
       {!isLoading && !errorMessage && hasRows && totalPages > 1 ? (
