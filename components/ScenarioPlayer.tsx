@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { ArrowLeft, Play, RotateCcw } from "lucide-react";
 import { apiRequest } from "../lib/apiClient";
 import { useAuth } from "./auth/AuthContext";
@@ -31,11 +31,6 @@ type ScenarioData = {
   title: string;
   difficulty_level: number;
   content_data: ScenarioContent;
-};
-
-type ScenarioRecord = ScenarioData & {
-  id?: string;
-  scenarioId?: string;
 };
 
 type AttemptStartResponse = {
@@ -74,6 +69,14 @@ type ScenarioPlayerProps = {
 const stripCitations = (value?: string | null) =>
   value ? value.replace(/\s*\[cite:[^\]]+\]/g, "").trim() : "";
 
+const getScenarioIndex = (scenarioId: string, total: number) => {
+  let hash = 0;
+  for (let index = 0; index < scenarioId.length; index += 1) {
+    hash = (hash * 31 + scenarioId.charCodeAt(index)) % total;
+  }
+  return hash;
+};
+
 const getRankForScore = (score: number) => {
   if (score >= 90) {
     return "Strategic Communicator";
@@ -92,7 +95,6 @@ const getProgressKey = (scenarioId: string) => `orglearn_scenario_${scenarioId}`
 export default function ScenarioPlayer({ scenarioId }: ScenarioPlayerProps) {
   const { token, isLoading: isAuthLoading } = useAuth();
   const router = useRouter();
-  const searchParams = useSearchParams();
   const [scenario, setScenario] = useState<ScenarioData | null>(null);
   const [scenarioError, setScenarioError] = useState<string | null>(null);
   const [isScenarioLoading, setIsScenarioLoading] = useState(true);
@@ -104,9 +106,7 @@ export default function ScenarioPlayer({ scenarioId }: ScenarioPlayerProps) {
   const [attemptId, setAttemptId] = useState<string | null>(null);
   const [isAttemptLoading, setIsAttemptLoading] = useState(false);
   const [nextScenarioId, setNextScenarioId] = useState<string | null>(null);
-  const [loadedScenarioId, setLoadedScenarioId] = useState<string | null>(null);
   const isComplete = phase === "complete";
-  const clickedScenarioId = searchParams.get("clickedScenarioId");
 
   const steps = useMemo<ScenarioStep[]>(() => {
     if (!scenario?.content_data) {
@@ -144,35 +144,21 @@ export default function ScenarioPlayer({ scenarioId }: ScenarioPlayerProps) {
       try {
         setScenarioError(null);
         setIsScenarioLoading(true);
-        if (!token) {
-          return;
+        const response = await fetch("/data/scenarios.json");
+        if (!response.ok) {
+          throw new Error("Unable to load scenarios.");
         }
-        const response = await apiRequest<unknown>(`/scenarios/${scenarioId}`, { token });
+        const data = (await response.json()) as ScenarioData[];
         if (!isMounted) {
           return;
         }
-
-        const loadedScenario = (() => {
-          if (!response || typeof response !== "object") {
-            return null;
-          }
-
-          if ("data" in response && response.data && typeof response.data === "object") {
-            return response.data as ScenarioRecord;
-          }
-
-          return response as ScenarioRecord;
-        })();
-
-        if (!loadedScenario || !loadedScenario.content_data) {
-          throw new Error("Unable to load scenario.");
+        if (data.length === 0) {
+          setScenarioError("No scenarios available.");
+          setScenario(null);
+          return;
         }
-
-        const resolvedScenarioId =
-          loadedScenario.scenarioId ?? loadedScenario.id ?? scenarioId;
-
-        setLoadedScenarioId(resolvedScenarioId);
-        setScenario(loadedScenario);
+        const selectedIndex = getScenarioIndex(scenarioId, data.length);
+        setScenario(data[selectedIndex]);
       } catch (error) {
         if (!isMounted) {
           return;
@@ -193,21 +179,12 @@ export default function ScenarioPlayer({ scenarioId }: ScenarioPlayerProps) {
     return () => {
       isMounted = false;
     };
-  }, [scenarioId, token]);
+  }, [scenarioId]);
 
   useEffect(() => {
     setAttemptId(null);
     setNextScenarioId(null);
-    setLoadedScenarioId(null);
   }, [scenarioId]);
-
-  useEffect(() => {
-    console.debug("Scenario navigation debug", {
-      routeScenarioId: scenarioId,
-      clickedScenarioId,
-      loadedScenarioId,
-    });
-  }, [scenarioId, clickedScenarioId, loadedScenarioId]);
 
   useEffect(() => {
     if (!scenario || steps.length === 0) {
@@ -493,9 +470,6 @@ export default function ScenarioPlayer({ scenarioId }: ScenarioPlayerProps) {
             <span className="font-extrabold text-[#1f2c1c]">
               {stripCitations(scenario.title)}
             </span>
-          </div>
-          <div className="rounded-full border border-[#cdd7c1] bg-white px-3 py-2 text-[10px] tracking-[0.22em] text-[#40513b]">
-            Clicked: {clickedScenarioId || "n/a"} | Route: {scenarioId} | Loaded: {loadedScenarioId || scenarioId}
           </div>
           <div>
             Progress: Step {Math.min(stepIndex + 1, totalSteps)} of {totalSteps}
