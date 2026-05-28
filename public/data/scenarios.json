@@ -1,147 +1,140 @@
 [
   {
+    "id": "96b8e978-e9db-4c69-a8e3-248b3fbc7781",
     "domain": "Team Management",
     "title": "Angajatul-vedeta cu performanta scazuta",
     "difficulty_level": 1,
     "content_data": {
-      "context": "Esti managerul unei echipe de 8 persoane intr-o companie de consultanta. Maria, cel mai bun consultant al tau timp de 3 ani, a inceput sa rateze termene, sa fie distrasa in sedinte si sa livreze rapoarte incomplete in ultimele 6 saptamani. Nu a existat nicio schimbare salariala sau organizatorica recenta. Colegii au observat si incep sa fie afectati de moralul echipei. Un client important a reclamat intarzieri. [cite: 6, 7, 8, 9]",
-      "question": "Care este primul pas pe care il faci ca manager? [cite: 10]",
+      "context": "Esti managerul unei echipe de 8 persoane intr-o companie de consultanta. Maria, cel mai bun consultant al tau timp de 3 ani, a inceput sa rateze termene, sa fie distrasa in sedinte si sa livreze rapoarte incomplete in ultimele 6 saptamani. Nu a existat nicio schimbare salariala sau organizatorica recenta. Colegii au observat si incep sa fie afectati de moralul echipei. Un client important a reclamat intarzieri.",
+      "question": "Care este primul pas pe care il faci ca manager?",
       "options": [
         { "text": "Ii trimiti un e-mail formal de avertizare si documentezi comportamentul pentru dosarul de HR.", "is_correct": false },
         { "text": "O programezi imediat pe un plan de imbunatatire a performantei (PIP) cu tinte clare.", "is_correct": false },
         { "text": "Ai o discutie privata, empatica cu ea, pentru a intelege daca exista cauze personale sau profesionale.", "is_correct": true },
         { "text": "Redistribui sarcinile ei critice altor colegi fara sa ii spui, pentru a proteja relatia cu clientul.", "is_correct": false }
       ],
-      "pedagogical_analysis": "Varianta C este corecta deoarece o performanta brusc scazuta la un angajat de top semnaleaza adesea o cauza subiacenta (situatie personala dificila, burnout, conflict intern neexprimat)[cite: 16]. Documentarea formala (A) sau PIP-ul (B) sunt premature si pot distruge increderea si loialitatea unui angajat valoros[cite: 17]. Redistribuirea tacuta a sarcinilor (D) evita problema si genereaza resentimente[cite: 18]. Conversatia privata si empatica creeaza spatiu sigur, permite intelegerea cauzei reale si mentine relatia manageriala sanatoasa[cite: 19]. Abia dupa aceasta conversatie, daca este necesar, se trece la pasi formali[cite: 20]."
+      "pedagogical_analysis": "Varianta C este corecta deoarece o performanta brusc scazuta la un angajat de top semnaleaza adesea o cauza subiacenta (situatie personala dificila, burnout, conflict intern neexprimat). Documentarea formala (A) sau PIP-ul (B) sunt premature si pot distruge increderea si loialitatea unui angajat valoros. Redistribuirea tacuta a sarcinilor (D) evita problema si genereaza resentimente. Conversatia privata si empatica creeaza spatiu sigur, permite intelegerea cauzei reale si mentine relatia manageriala sanatoasa. Abia dupa aceasta conversatie, daca este necesar, se trece la pasi formali."
     }
   },
   {
+    "id": "c9fa0bad-5316-49d1-95ff-80331e01aea0",
     "domain": "Team Management",
     "title": "Conflictul dintre doi membri cheie",
     "difficulty_level": 1,
     "content_data": {
-      "context": "Andrei (senior developer) si Ioana (product manager) se afla intr-un conflict deschis de 2 saptamani privind prioritizarea functionalitatilor. Andrei sustine ca Ioana schimba cerintele constant, Ioana afirma ca Andrei refuza sa se adapteze la nevoile clientilor. Conflictul a afectat comunicarea in echipa si a incetinit un sprint. Ambii sunt performeri-cheie pe care nu iti permiti sa ii pierzi. [cite: 24, 25, 26, 27]",
-      "question": "Cum gestionezi acest conflict? [cite: 28]",
+      "context": "Andrei (senior developer) si Ioana (product manager) se afla intr-un conflict deschis de 2 saptamani privind prioritizarea functionalitatilor. Andrei sustine ca Ioana schimba cerintele constant, Ioana afirma ca Andrei refuza sa se adapteze la nevoile clientilor. Conflictul a afectat comunicarea in echipa si a incetinit un sprint. Ambii sunt performeri-cheie pe care nu iti permiti sa ii pierzi.",
+      "question": "Cum gestionezi acest conflict?",
       "options": [
         { "text": "Ii chemi pe amandoi la o sedinta comuna imediat si ceri un compromis pe loc.", "is_correct": false },
         { "text": "Vorbesti separat cu fiecare, intelegi perspectiva fiecaruia, apoi facilitezi o discutie structurata cu reguli clare.", "is_correct": true },
         { "text": "Ii lasi sa rezolve singuri - sunt adulti si profesionisti.", "is_correct": false },
         { "text": "Decizi tu prioritizarea functionalitatilor si le comunici decizia finala, eliminand sursa conflictului.", "is_correct": false }
       ],
-      "pedagogical_analysis": "Varianta B aplica principiile medierii eficiente: conversatiile separate reduc defensivitatea si permit managerului sa inteleaga ambele puncte de vedere in profunzime[cite: 34]. O discutie structurata ulterior, cu reguli clare (ascultare activa, focus pe problema de business, nu pe persoane), creste sansele de solutionare autentica[cite: 35]. Optiunea A risca escaladarea in fata altora[cite: 36]. Optiunea C abdica de la responsabilitatea manageriala si problemele se cronicizeaza[cite: 36]. Optiunea D poate rezolva simptomul, dar nu vindeca relatia si poate genera resentimente pe termen lung[cite: 37]."
+      "pedagogical_analysis": "Varianta B aplica principiile medierii eficiente: conversatiile separate reduc defensivitatea si permit managerului sa inteleaga ambele puncte de vedere in profunzime. O discutie structurata ulterior, cu reguli clare (ascultare activa, focus pe problema de business, nu pe persoane), creste sansele de solutionare autentica. Optiunea A risca escaladarea in fata altora. Optiunea C abdica de la responsabilitatea manageriala si problemele se cronicizeaza. Optiunea D poate rezolva simptomul, dar nu vindeca relatia si poate genera resentimente pe termen lung."
     }
   },
   {
+    "id": "adacada8-5064-4a7f-84e7-d86924c82475",
     "domain": "Organizational Innovation",
     "title": "Inovatia blocata de cultura organizationala",
     "difficulty_level": 1,
     "content_data": {
-      "context": "Esti directorul de operatiuni al unui retailer traditional cu 200 de angajati. Ai propus implementarea unui sistem de gestionare a stocurilor bazat pe AI, care ar reduce pierderile cu 30%. Consiliul de administratie a aprobat bugetul, dar echipele de teren rezista activ: a functionat intotdeauna manual, nu avem timp sa invatam, sistemele IT nu functioneaza niciodata la noi. Fara adoptia echipelor, proiectul va esua. [cite: 41, 42, 43, 44]",
-      "question": "Descrie in 3-5 pasi concreti strategia ta de management al schimbarii pentru a obtine adoptia echipelor de teren. Mentioneaza cel putin: cum implici oamenii, cum gestionezi rezistenta si cum masori succesul. [cite: 45, 46]",
+      "context": "Esti directorul de operatiuni al unui retailer traditional cu 200 de angajati. Ai propus implementarea unui sistem de gestionare a stocurilor bazat pe AI, care ar reduce pierderile cu 30%. Consiliul de administratie a aprobat bugetul, dar echipele de teren rezista activ: a functionat intotdeauna manual, nu avem timp sa invatam, sistemele IT nu functioneaza niciodata la noi. Fara adoptia echipelor, proiectul va esua.",
+      "question": "Descrie in 3-5 pasi concreti strategia ta de management al schimbarii pentru a obtine adoptia echipelor de teren. Mentioneaza cel putin: cum implici oamenii, cum gestionezi rezistenta si cum masori succesul.",
       "options": [],
-      "pedagogical_analysis": "1. IMPLICARE TIMPURIE: Identifici 2-3 champions din echipele de teren (oameni respectati de colegi) si ii implici in pilotarea sistemului din faza de testare[cite: 48]. 2. COMUNICAREA BENEFICIILOR CONCRETE: Nu vinzi AI, ci vinzi mai putin stres la inventar si mai putin timp pierdut cu reclamatii de stoc[cite: 49]. Traduci beneficiile tehnice in limbajul zilnic al echipelor[cite: 50]. 3. FORMARE GRADUALA CU SUPORT: Organizezi sesiuni scurte (30 min) la locul de munca. Desemnezi un coleg-resursa pe fiecare tura pentru primele 4 saptamani[cite: 51, 52]. 4. GESTIONAREA REZISTENTEI: Creezi un canal anonim pentru feedback. Raspunzi public si rapid la primele 10 probleme raportate[cite: 53, 54]. 5. MASURARE SI CELEBRARE: Definiti KPI clari (rata de adoptie saptamanala, erori de stoc, timp de procesare) si celebrezi primele echipe care ating 80% adoptie[cite: 55, 56]."
+      "pedagogical_analysis": "1. IMPLICARE TIMPURIE: Identifici 2-3 champions din echipele de teren (oameni respectati de colegi) si ii implici in pilotarea sistemului din faza de testare. 2. COMUNICAREA BENEFICIILOR CONCRETE: Nu vinzi AI, ci vinzi mai putin stres la inventar si mai putin timp pierdut cu reclamatii de stoc. Traduci beneficiile tehnice in limbajul zilnic al echipelor. 3. FORMARE GRADUALA CU SUPORT: Organizezi sesiuni scurte (30 min) la locul de munca. Desemnezi un coleg-resursa pe fiecare tura pentru primele 4 saptamani. 4. GESTIONAREA REZISTENTEI: Creezi un canal anonim pentru feedback. Raspunzi public si rapid la primele 10 probleme raportate. 5. MASURARE SI CELEBRARE: Definiti KPI clari (rata de adoptie saptamanala, erori de stoc, timp de procesare) si celebrezi primele echipe care ating 80% adoptie."
     }
   },
   {
+    "id": "fac1b3f0-48b3-4170-a31e-28b0def08c88",
     "domain": "Communication",
     "title": "Comunicarea unei vesti proaste echipei",
     "difficulty_level": 1,
     "content_data": {
-      "context": "Compania a decis restructurarea unui departament, ceea ce inseamna ca 3 posturi din echipa ta de 10 oameni vor fi eliminate in 60 de zile. Tu ai aflat ieri, in confidentialitate, de la directorul general. Procesul de selectie a posturilor afectate nu a inceput inca. Luni dimineata ai sedinta saptamanala cu echipa ta. [cite: 60, 61, 62]",
-      "question": "Ce faci luni dimineata in sedinta cu echipa? [cite: 63]",
+      "context": "Compania a decis restructurarea unui departament, ceea ce inseamna ca 3 posturi din echipa ta de 10 oameni vor fi eliminate in 60 de zile. Tu ai aflat ieri, in confidentialitate, de la directorul general. Procesul de selectie a posturilor afectate nu a inceput inca. Luni dimineata ai sedinta saptamanala cu echipa ta.",
+      "question": "Ce faci luni dimineata in sedinta cu echipa?",
       "options": [
         { "text": "Nu spui nimic - nu ai voie sa divulgi informatii confidentiale si astepti anuntul oficial.", "is_correct": false },
         { "text": "Le spui tot ce stii, inclusiv ca nu stii cine va fi afectat, pentru ca ei merita sa fie pregatiti.", "is_correct": false },
         { "text": "Anulezi sedinta ca sa castigi timp sa ceri mai multa claritate de la HR inainte sa comunici ceva.", "is_correct": false },
         { "text": "Mentionezi ca urmeaza schimbari organizationale, ca vei comunica detalii de indata ce le primesti si ca esti disponibil pentru discutii individuale.", "is_correct": true }
       ],
-      "pedagogical_analysis": "Varianta D este optima deoarece respecta confidentialitatea, dar nu ascunde complet o realitate care va afecta oamenii[cite: 70]. Tacerea totala (A) risca sa alimenteze zvonurile[cite: 71]. Divulgarea completa (B) inainte de clarificarea procesului poate crea panica nejustificata[cite: 71]. Anularea sedintei (C) este evaziva si genereaza ingrijorare suplimentara[cite: 72]. Un manager eficient comunica transparent in limita a ceea ce stie cert, arata disponibilitate si mentine echipa stabila emotional[cite: 72]."
+      "pedagogical_analysis": "Varianta D este optima deoarece respecta confidentialitatea, dar nu ascunde complet o realitate care va afecta oamenii. Tacerea totala (A) risca sa alimenteze zvonurile. Divulgarea completa (B) inainte de clarificarea procesului poate crea panica nejustificata. Anularea sedintei (C) este evaziva si genereaza ingrijorare suplimentara. Un manager eficient comunica transparent in limita a ceea ce stie cert, arata disponibilitate si mentine echipa stabila emotional."
     }
   },
   {
+    "id": "03e53d85-b664-470d-832d-6df8357dc96b",
     "domain": "Team Management",
     "title": "Delegarea sarcinii critice",
     "difficulty_level": 1,
     "content_data": {
-      "context": "Esti managerul unui departament de marketing si trebuie sa prezinti o strategie de rebranding unui client major peste 3 saptamani. Ai doua optiuni pentru a coordona proiectul: Radu - experimentat, dar supradincarcat; si Cristina - talentata, mai putin experimentata, disponibila, dar nu a mai coordonat un proiect de aceasta anvergura. [cite: 76, 77, 78]",
-      "question": "Pe cine alegi sa coordoneze proiectul si cum il/o sustii? [cite: 79]",
+      "context": "Esti managerul unui departament de marketing si trebuie sa prezinti o strategie de rebranding unui client major peste 3 saptamani. Ai doua optiuni pentru a coordona proiectul: Radu - experimentat, dar supradincarcat; si Cristina - talentata, mai putin experimentata, disponibila, dar nu a mai coordonat un proiect de aceasta anvergura.",
+      "question": "Pe cine alegi sa coordoneze proiectul si cum il/o sustii?",
       "options": [
         { "text": "Alegi Radu - experienta lui reduce riscul. Ii ceri sa mai renunte la un proiect curent.", "is_correct": false },
         { "text": "Alegi Cristina, ii dai autonomie deplina si intervii doar daca lucrurile merg prost.", "is_correct": false },
         { "text": "Alegi Cristina, cu un plan clar de suport: check-in-uri la 3-5-10 zile, mentorat de la Radu pe aspectele tehnice si tu ramii punctul de escaladare.", "is_correct": true },
         { "text": "Coordonezi tu personal proiectul, fara sa il delegi, pentru ca miza e prea mare.", "is_correct": false }
       ],
-      "pedagogical_analysis": "Varianta C aplica principiul delegarii strategice: alegi persoana disponibila si talentata, dar creezi un sistem de suport care compenseaza lipsa de experienta[cite: 86]. Radu (A) este deja supradincarcat[cite: 87]. Autonomia fara suport (B) pentru un proiect critic si un coordonator junior este un risc managerial nejustificat[cite: 87]. Coordonarea personala (D) este o forma de micro-management care blocheaza dezvoltarea echipei[cite: 88]. Delegarea cu structura de suport este singura optiune care dezvolta simultan oamenii si livreaza rezultate[cite: 89]."
+      "pedagogical_analysis": "Varianta C aplica principiul delegarii strategice: alegi persoana disponibila si talentata, dar creezi un sistem de suport care compenseaza lipsa de experienta. Radu (A) este deja supradincarcat. Autonomia fara suport (B) pentru un proiect critic si un coordonator junior este un risc managerial nejustificat. Coordonarea personala (D) este o forma de micro-management care blocheaza dezvoltarea echipei. Delegarea cu structura de suport este singura optiune care dezvolta simultan oamenii si livreaza rezultate."
     }
   },
   {
+    "id": "506d2676-4d94-446a-b04e-3b0ba3fe1270",
     "domain": "Communication",
     "title": "Feedback negativ pentru un coleg senior",
     "difficulty_level": 1,
     "content_data": {
-      "context": "Dan are 15 ani in companie si este respectat. Ai observat ca in ultimele 3 sedinte, Dan a intrerupt colegii mai tineri si a respins idei noi cu comentarii de tip 'am mai incercat asta', creand o dinamica in care juniorii nu mai indraznesc sa vorbeasca. Comportamentul lui sufoca inovatia echipei. [cite: 93, 94, 95]",
-      "question": "Scrie exact ce i-ai spune lui Dan intr-o discutie fata in fata. Foloseste un limbaj specific, non-acuzator, bazat pe comportamente observabile, si propune o schimbare concreta. [cite: 96, 97]",
+      "context": "Dan are 15 ani in companie si este respectat. Ai observat ca in ultimele 3 sedinte, Dan a intrerupt colegii mai tineri si a respins idei noi cu comentarii de tip 'am mai incercat asta', creand o dinamica in care juniorii nu mai indraznesc sa vorbeasca. Comportamentul lui sufoca inovatia echipei.",
+      "question": "Scrie exact ce i-ai spune lui Dan intr-o discutie fata in fata. Foloseste un limbaj specific, non-acuzator, bazat pe comportamente observabile, si propune o schimbare concreta.",
       "options": [],
-      "pedagogical_analysis": "Apreciezi experienta lui Dan[cite: 99]. Mentionezi observatiile specifice: intreruperile si replicile care inchid conversatia in ultimele 3 sedinte[cite: 101]. Explici efectul: Elena si Mihai au incetat sa mai intervina[cite: 102]. Clarifici ca nu crezi ca aceasta este intentia lui, dar impactul este pierderea de perspective[cite: 103]. Propui o schimbare concreta: explorarea ideilor noi timp de 5 minute inainte de a aduce experienta sa critica[cite: 104]. Inchei prin a cere perspectiva lui[cite: 105]."
+      "pedagogical_analysis": "Apreciezi experienta lui Dan. Mentionezi observatiile specifice: intreruperile si replicile care inchid conversatia in ultimele 3 sedinte. Explici efectul: Elena si Mihai au incetat sa mai intervina. Clarifici ca nu crezi ca aceasta este intentia lui, dar impactul este pierderea de perspective. Propui o schimbare concreta: explorarea ideilor noi timp de 5 minute inainte de a aduce experienta sa critica. Inchei prin a cere perspectiva lui."
     }
   },
   {
-    "domain": "Knowledge Management",
-    "title": "Gestionarea pierderii de cunostinte la plecarea unui expert",
-    "difficulty_level": 1,
-    "content_data": {
-      "context": "Vlad, singurul expert in sistemul ERP al companiei, si-a dat demisia si pleaca in 4 saptamani. El detine cunostinte critice nedocumentate: configurari personalizate, workaround-uri pentru bug-uri, contacte-cheie. Fara el, echipa de 5 oameni va fi paralizata. [cite: 109, 110, 111]",
-      "question": "Care este planul tau de transfer de cunostinte? [cite: 112]",
-      "options": [
-        { "text": "Ii ceri lui Vlad sa scrie un manual complet al sistemului in ultimele 4 saptamani.", "is_correct": false },
-        { "text": "Angajezi imediat un consultant extern care sa preia rolul lui Vlad dupa plecare.", "is_correct": false },
-        { "text": "Creezi un plan structurat: identifici top 10 scenarii critice, organizezi sesiuni de shadowing si Q&A cu un coleg desemnat, documentezi procesele cheie in format video si scris, si testezi transferul de cunostinte inainte de ultima zi.", "is_correct": true },
-        { "text": "Ceri echipei sa lucreze mai mult pentru a compensa absenta lui Vlad dupa ce pleaca.", "is_correct": false }
-      ],
-      "pedagogical_analysis": "Varianta C aplica principiile Knowledge Management modern: prioritizarea scenariilor critice, documentarea multi-format (video + scris), shadowing activ si validarea transferului prin testare[cite: 119]. Manualul complet (A) este imposibil de scris in 4 saptamani[cite: 120]. Consultantul extern (B) nu va cunoaste specificul companiei imediat[cite: 121]. Suprasolicitarea echipei (D) genereaza burnout si nu rezolva lipsa cunoasterii[cite: 122]."
-    }
-  },
-  {
+    "id": "4ff638ab-1289-45bd-97f7-2e906ba5b005",
     "domain": "Team Management",
     "title": "Decizia de promovare in conditii de ambiguitate",
     "difficulty_level": 1,
     "content_data": {
-      "context": "Ai un post de team lead disponibil. Alina: excelenta tehnic, introvertita, putin experimentata in coordonare, dar cu potential. George: relatii excelente, comunicator natural, performanta tehnica medie, fara initiative proprii. Rolul presupune 60% coordonare si 40% livrare tehnica. [cite: 126, 127, 128]",
-      "question": "Pe cine promovezi si de ce? [cite: 129]",
+      "context": "Ai un post de team lead disponibil. Alina: excelenta tehnic, introvertita, putin experimentata in coordonare, dar cu potential. George: relatii excelente, comunicator natural, performanta tehnica medie, fara initiative proprii. Rolul presupune 60% coordonare si 40% livrare tehnica.",
+      "question": "Pe cine promovezi si de ce?",
       "options": [
         { "text": "Pe George - relatiile cu oamenii si comunicarea sunt mai importante pentru un team lead si sunt mai greu de dezvoltat.", "is_correct": false },
         { "text": "Pe Alina - performanta tehnica superioara va inspira echipa si va asigura calitatea livrarilor.", "is_correct": false },
         { "text": "Pe Alina, cu un plan de dezvoltare intensiv pe leadership (mentor extern, training de comunicare, check-in-uri lunare) in primele 6 luni.", "is_correct": true },
         { "text": "Nu promovezi niciunul - recrutezi extern pentru a evita favoritismele.", "is_correct": false }
       ],
-      "pedagogical_analysis": "Varianta C recunoaste ca Alina are potentialul mai mare pentru rol datorita performantei si initiativei, dar compenseaza lipsa de experienta in leadership prin investitie deliberata[cite: 136]. Abilitatile de coordonare se pot dezvolta cu suport structurat[cite: 137]. George (A) nu a demonstrat initiativa de crestere[cite: 138]. Promovarea tehnica pura (B) fara suport este un risc de esec[cite: 139]. Recrutarea externa (D) demotiveaza echipa si ignora talentul intern[cite: 140]."
+      "pedagogical_analysis": "Varianta C recunoaste ca Alina are potentialul mai mare pentru rol datorita performantei si initiativei, dar compenseaza lipsa de experienta in leadership prin investitie deliberata. Abilitatile de coordonare se pot dezvolta cu suport structurat. George (A) nu a demonstrat initiativa de crestere. Promovarea tehnica pura (B) fara suport este un risc de esec. Recrutarea externa (D) demotiveaza echipa si ignora talentul intern."
     }
   },
   {
+    "id": "2a98478b-62d9-40cd-99a1-76c64f6eac39",
     "domain": "Organizational Innovation",
     "title": "Echipa refuza o directiva venita de sus",
     "difficulty_level": 1,
     "content_data": {
-      "context": "Top managementul a decis adoptarea metodologiei OKR. Echipa ta este sceptica: considera ca e doar birocratie si nu au timp de invatat. Tu crezi in beneficiile OKR si trebuie sa facilitezi adoptarea fara sa pierzi credibilitatea. [cite: 144, 145, 146, 147]",
-      "question": "Descrie cum conduci prima sedinta de introducere a OKR cu echipa ta. Ce spui, cum gestionezi scepticismul si ce actiuni concrete propui pentru prima luna? [cite: 148, 149]",
+      "context": "Top managementul a decis adoptarea metodologiei OKR. Echipa ta este sceptica: considera ca e doar birocratie si nu au timp de invatat. Tu crezi in beneficiile OKR si trebuie sa facilitezi adoptarea fara sa pierzi credibilitatea.",
+      "question": "Descrie cum conduci prima sedinta de introducere a OKR cu echipa ta. Ce spui, cum gestionezi scepticismul si ce actiuni concrete propui pentru prima luna?",
       "options": [],
-      "pedagogical_analysis": "Deschiderea: validezi scepticismul intreband ce nu functioneaza acum in setarea obiectivelor[cite: 151, 152, 153]. Gestionarea scepticismului: notezi ingrijorarile pe flip-chart, raspunzi direct si recunosti riscurile unei implementari proaste[cite: 154, 155]. Propunerea concreta: implementare tip pilot - un singur obiectiv personal si 2 indicatori de succes pentru prima luna[cite: 156]. Actiuni: template simplu, 1-1 optionale si tracker vizibil[cite: 159, 160]."
+      "pedagogical_analysis": "Deschiderea: validezi scepticismul intreband ce nu functioneaza acum in setarea obiectivelor. Gestionarea scepticismului: notezi ingrijorarile pe flip-chart, raspunzi direct si recunosti riscurile unei implementari proaste. Propunerea concreta: implementare tip pilot - un single obiectiv personal si 2 indicatori de succes pentru prima luna. Actiuni: template simplu, 1-1 optionale si tracker vizibil."
     }
   },
   {
+    "id": "17de595a-f82f-42b0-a344-510853f5e94e",
     "domain": "Communication",
     "title": "Eroarea critica si responsabilitatea echipei",
     "difficulty_level": 1,
     "content_data": {
-      "context": "Echipa a livrat un raport financiar cu o eroare majora. Clientul a reclamat la DG. DG te intreaba: 'Cine a gresit?'. Tu stii ca Bogdan, un angajat tanar aflat intr-o perioada dificila, a facut eroarea si a recunoscut-o in privat. [cite: 164, 165, 166, 167, 168]",
-      "question": "Ce raspunzi directorului general? [cite: 169]",
+      "context": "Echipa a livrat un raport financiar cu o eroare majora. Clientul a reclamat la DG. DG te intreaba: 'Cine a gresit?'. Tu stii ca Bogdan, un angajat tanar aflat intr-o perioada dificila, a facut eroarea si a recunoscut-o in privat.",
+      "question": "Ce raspunzi directorului general?",
       "options": [
         { "text": "Bogdan a facut eroarea - el a verificat calculele finale.", "is_correct": false },
         { "text": "Echipa mea a gresit si eu sunt responsabil ca manager. Iata ce s-a intamplat si ce masuri am luat deja.", "is_correct": true },
         { "text": "Nu stiu exact cine a gresit, trebuie sa investighez.", "is_correct": false },
         { "text": "Procesul nostru de verificare a avut o lacuna - nimeni nu e vinovat personal.", "is_correct": false }
       ],
-      "pedagogical_analysis": "Varianta B este raspunsul unui manager matur: iti asumi responsabilitatea (procesul si semnatura iti apartin), vii cu solutii si protejezi membrul echipei[cite: 176]. Indicarea directa (A) distruge increderea si creeaza frica[cite: 177]. Evaziunea (C) sau scuzele procesuale (D) semnalizeaza lipsa de leadership sau evitarea responsabilitatii[cite: 178]. Un manager eficient aplica principiul: succesele sunt ale echipei, esecurile sunt ale mele[cite: 179]. Ulterior, lucrezi in privat cu Bogdan pe lectiile invatate[cite: 180]."
+      "pedagogical_analysis": "Varianta B este raspunsul unui manager matur: iti asumi responsabilitatea (procesul si semnatura iti apartin), vii cu solutii si protejezi membrul echipei. Indicarea directa (A) distruge increderea si creeaza frica. Evaziunea (C) sau scuzele procesuale (D) semnalizeaza lipsa de leadership sau evitarea responsabilitatii. Un manager eficient aplica principiul: succesele sunt ale echipei, esecurile sunt ale mele. Ulterior, lucrezi in privat cu Bogdan pe lectiile invatate."
     }
   }
 ]
