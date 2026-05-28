@@ -204,9 +204,9 @@ function QuestionnaireForm() {
                 defaultValue={1}
                 className="mt-2 w-full rounded-2xl border border-[#d0dcc3] bg-[#f8faf3] px-4 py-3 text-sm text-[#3d4a38] focus:outline-none focus:ring-2 focus:ring-[#609966]/30"
               >
-                <option value={1}>Beginner</option>
-                <option value={2}>Intermediate</option>
-                <option value={3}>Advanced</option>
+                <option value={1}>Foundational</option>
+                <option value={2}>Applied</option>
+                <option value={3}>Strategic</option>
               </select>
             </label>
 

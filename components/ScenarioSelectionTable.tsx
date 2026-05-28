@@ -22,15 +22,15 @@ type ScenarioSelectionResponse = {
 
 const getDifficultyLabel = (level: number) => {
   if (level === 1) {
-    return "Beginner";
+    return "Foundational";
   }
 
   if (level === 2) {
-    return "Intermediate";
+    return "Applied";
   }
 
   if (level === 3) {
-    return "Advanced";
+    return "Strategic";
   }
 
   return "Unknown";
@@ -50,6 +50,22 @@ const getDifficultyStars = (level: number) => {
   }
 
   return 0;
+};
+
+const getDifficultyPillClass = (level: number) => {
+  if (level === 1) {
+    return "bg-[#eef4e3] text-[#4f6a41]";
+  }
+
+  if (level === 2) {
+    return "bg-[#fff4df] text-[#9b6a1f]";
+  }
+
+  if (level === 3) {
+    return "bg-[#f1e7d8] text-[#8a4f1f]";
+  }
+
+  return "bg-[#eef1ec] text-[#5e6d59]";
 };
 
 function Stars({ count }: { count: number }) {
@@ -166,7 +182,13 @@ export default function ScenarioSelectionTable() {
               </div>
               <div className="flex items-center gap-3 text-sm text-[#5e6d59]">
                 <Stars count={getDifficultyStars(scenario.difficultyLevel)} />
-                <span>{getDifficultyLabel(scenario.difficultyLevel)}</span>
+                <span
+                  className={`rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] ${getDifficultyPillClass(
+                    scenario.difficultyLevel
+                  )}`}
+                >
+                  {getDifficultyLabel(scenario.difficultyLevel)}
+                </span>
               </div>
               <div className="flex justify-end">
                 <Link

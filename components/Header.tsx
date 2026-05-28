@@ -32,6 +32,11 @@ export default function Header() {
               Add Questionnaire
             </Link>
           ) : null}
+          {isAdmin ? (
+            <Link href="/admin/company-list" className="transition hover:text-[#40513b]">
+              Company List
+            </Link>
+          ) : null}
         </nav>
         {token ? (
           <div className="flex items-center gap-3">
