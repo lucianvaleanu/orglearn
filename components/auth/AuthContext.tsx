@@ -18,6 +18,7 @@ type User = {
   id: string;
   name: string;
   email: string;
+  company?: string | null;
   role: "user" | "admin";
   current_rank?: string | null;
 };

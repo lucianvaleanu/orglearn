@@ -16,6 +16,11 @@ export default function Header() {
           <Link href="/" className="transition hover:text-[#40513b]">
             Community
           </Link>
+          {token ? (
+            <Link href="/profile" className="transition hover:text-[#40513b]">
+              Profile
+            </Link>
+          ) : null}
           <Link href="/" className="transition hover:text-[#40513b]">
             Resources
           </Link>
