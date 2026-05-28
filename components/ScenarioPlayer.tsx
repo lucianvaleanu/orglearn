@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ArrowLeft, Play, RotateCcw } from "lucide-react";
 import { apiRequest } from "../lib/apiClient";
+import { saveCompletedScenarioScore } from "../lib/scenarioProgress";
 import { useAuth } from "./auth/AuthContext";
 import type { ScenarioData, ScenarioStep } from "../lib/scenarios";
 
@@ -343,6 +344,8 @@ export default function ScenarioPlayer({ scenarioId }: ScenarioPlayerProps) {
         }
       }
     }
+
+    saveCompletedScenarioScore(scenarioId, score);
 
     if (token) {
       try {

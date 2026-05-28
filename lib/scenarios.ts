@@ -29,14 +29,31 @@ export type ScenarioData = {
 
 type ScenarioResponse = ScenarioData[] | { data?: ScenarioData[] };
 
-export const fetchScenariosFromDatabase = async (token: string) => {
-  const response = await apiRequest<ScenarioResponse>("/scenarios", {
-    token,
-  });
+export const fetchScenariosFromDatabase = async (token?: string | null) => {
+  // Try API first when a token is provided
+  if (token) {
+    try {
+      const response = await apiRequest<ScenarioResponse>("/scenarios", { token });
 
-  if (Array.isArray(response)) {
-    return response;
+      if (Array.isArray(response)) {
+        return response;
+      }
+
+      if (Array.isArray(response.data)) {
+        return response.data;
+      }
+    } catch (e) {
+      // ignore and fallback to local file
+    }
   }
 
-  return Array.isArray(response.data) ? response.data : [];
+  // Fallback to local static JSON in `public/data/scenarios.json`
+  try {
+    const res = await fetch("/data/scenarios.json");
+    if (!res.ok) return [];
+    const data = (await res.json()) as ScenarioData[];
+    return Array.isArray(data) ? data : [];
+  } catch (e) {
+    return [];
+  }
 };
