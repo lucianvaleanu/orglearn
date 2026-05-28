@@ -6,32 +6,7 @@ import { useRouter } from "next/navigation";
 import { ArrowLeft, Play, RotateCcw } from "lucide-react";
 import { apiRequest } from "../lib/apiClient";
 import { useAuth } from "./auth/AuthContext";
-
-type ScenarioOption = {
-  text: string;
-  is_correct: boolean;
-};
-
-type ScenarioStep = {
-  context?: string;
-  question?: string;
-  options?: ScenarioOption[];
-  pedagogical_analysis?: string;
-  model_response?: string;
-  model_strategy?: string;
-  actions_of_the_first_month?: string;
-};
-
-type ScenarioContent = ScenarioStep & {
-  steps?: ScenarioStep[];
-};
-
-type ScenarioData = {
-  domain: string;
-  title: string;
-  difficulty_level: number;
-  content_data: ScenarioContent;
-};
+import type { ScenarioData, ScenarioStep } from "../lib/scenarios";
 
 type AttemptStartResponse = {
   data: {
@@ -69,13 +44,13 @@ type ScenarioPlayerProps = {
 const stripCitations = (value?: string | null) =>
   value ? value.replace(/\s*\[cite:[^\]]+\]/g, "").trim() : "";
 
-const getScenarioIndex = (scenarioId: string, total: number) => {
-  let hash = 0;
-  for (let index = 0; index < scenarioId.length; index += 1) {
-    hash = (hash * 31 + scenarioId.charCodeAt(index)) % total;
-  }
-  return hash;
-};
+// const getScenarioIndex = (scenarioId: string, total: number) => {
+//   let hash = 0;
+//   for (let index = 0; index < scenarioId.length; index += 1) {
+//     hash = (hash * 31 + scenarioId.charCodeAt(index)) % total;
+//   }
+//   return hash;
+// };
 
 const getRankForScore = (score: number) => {
   if (score >= 90) {
@@ -93,7 +68,7 @@ const getRankForScore = (score: number) => {
 const getProgressKey = (scenarioId: string) => `orglearn_scenario_${scenarioId}`;
 
 export default function ScenarioPlayer({ scenarioId }: ScenarioPlayerProps) {
-  const { token, isLoading: isAuthLoading } = useAuth();
+  const { token, isLoading: isAuthLoading, isScenariosLoading, scenarios } = useAuth();
   const router = useRouter();
   const [scenario, setScenario] = useState<ScenarioData | null>(null);
   const [scenarioError, setScenarioError] = useState<string | null>(null);
@@ -138,48 +113,37 @@ export default function ScenarioPlayer({ scenarioId }: ScenarioPlayerProps) {
   }, [token, isAuthLoading, router]);
 
   useEffect(() => {
-    let isMounted = true;
+    if (isAuthLoading || isScenariosLoading) {
+      return;
+    }
 
-    const loadScenario = async () => {
-      try {
-        setScenarioError(null);
-        setIsScenarioLoading(true);
-        const response = await fetch("/data/scenarios.json");
-        if (!response.ok) {
-          throw new Error("Unable to load scenarios.");
-        }
-        const data = (await response.json()) as ScenarioData[];
-        if (!isMounted) {
-          return;
-        }
-        if (data.length === 0) {
-          setScenarioError("No scenarios available.");
-          setScenario(null);
-          return;
-        }
-        const selectedIndex = getScenarioIndex(scenarioId, data.length);
-        setScenario(data[selectedIndex]);
-      } catch (error) {
-        if (!isMounted) {
-          return;
-        }
-        setScenarioError(
-          error instanceof Error ? error.message : "Unable to load scenario."
-        );
-        setScenario(null);
-      } finally {
-        if (isMounted) {
-          setIsScenarioLoading(false);
-        }
-      }
-    };
+    setScenarioError(null);
+    setIsScenarioLoading(true);
 
-    loadScenario();
+    if (!token) {
+      setScenario(null);
+      setIsScenarioLoading(false);
+      return;
+    }
 
-    return () => {
-      isMounted = false;
-    };
-  }, [scenarioId]);
+    if (scenarios.length === 0) {
+      setScenarioError("No scenarios available.");
+      setScenario(null);
+      setIsScenarioLoading(false);
+      return;
+    }
+
+    const matchedScenario = scenarios.find((item) => item.id === scenarioId);
+
+    if (matchedScenario) {
+      setScenario(matchedScenario);
+    } else {
+      setScenarioError("Scenario not found.");
+      setScenario(null);
+    }
+
+    setIsScenarioLoading(false);
+  }, [scenarioId, token, scenarios, isAuthLoading, isScenariosLoading]);
 
   useEffect(() => {
     setAttemptId(null);

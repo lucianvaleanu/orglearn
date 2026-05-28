@@ -9,6 +9,10 @@ import {
   useState,
 } from "react";
 import { apiRequest } from "../../lib/apiClient";
+import {
+  fetchScenariosFromDatabase,
+  ScenarioData,
+} from "../../lib/scenarios";
 
 type User = {
   id: string;
@@ -24,6 +28,8 @@ type AuthContextValue = {
   isAdmin: boolean;
   token: string | null;
   isLoading: boolean;
+  isScenariosLoading: boolean;
+  scenarios: ScenarioData[];
   login: (payload: { email: string; password: string }) => Promise<void>;
   signup: (payload: { name: string; email: string; password: string }) => Promise<void>;
   logout: () => void;
@@ -57,6 +63,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [token, setToken] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isScenariosLoading, setIsScenariosLoading] = useState(true);
+  const [scenarios, setScenarios] = useState<ScenarioData[]>([]);
 
   const fetchProfile = useCallback(
     async (activeToken: string) => {
@@ -68,22 +76,39 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     []
   );
 
+  const loadScenarios = useCallback(async (activeToken: string) => {
+    setIsScenariosLoading(true);
+
+    try {
+      const data = await fetchScenariosFromDatabase(activeToken);
+      setScenarios(data);
+    } catch {
+      setScenarios([]);
+    } finally {
+      setIsScenariosLoading(false);
+    }
+  }, []);
+
   useEffect(() => {
     const storedToken = readToken();
     if (!storedToken) {
       setIsLoading(false);
+      setIsScenariosLoading(false);
       return;
     }
 
     setToken(storedToken);
     fetchProfile(storedToken)
+      .then(() => loadScenarios(storedToken))
       .catch(() => {
         setUser(null);
         setToken(null);
+        setScenarios([]);
         storeToken(null);
+        setIsScenariosLoading(false);
       })
       .finally(() => setIsLoading(false));
-  }, [fetchProfile]);
+  }, [fetchProfile, loadScenarios]);
 
   const login = useCallback(
     async ({ email, password }: { email: string; password: string }) => {
@@ -95,8 +120,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       setToken(data.token);
       storeToken(data.token);
       setUser(data.user);
+      void loadScenarios(data.token);
     },
-    []
+    [loadScenarios]
   );
 
   const signup = useCallback(
@@ -114,6 +140,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const logout = useCallback(() => {
     setUser(null);
     setToken(null);
+    setScenarios([]);
+    setIsScenariosLoading(false);
     storeToken(null);
   }, []);
 
@@ -124,11 +152,13 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       isAdmin: user?.role === "admin",
       token,
       isLoading,
+      isScenariosLoading,
+      scenarios,
       login,
       signup,
       logout,
     }),
-    [user, token, isLoading, login, signup, logout]
+    [user, token, isLoading, isScenariosLoading, scenarios, login, signup, logout]
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
