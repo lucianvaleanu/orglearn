@@ -3,7 +3,7 @@
     "id": "96b8e978-e9db-4c69-a8e3-248b3fbc7781",
     "domain": "Team Management",
     "title": "Angajatul-vedeta cu performanta scazuta",
-    "difficulty_level": 1,
+    "difficulty_level": 3,
     "content_data": {
       "context": "Esti managerul unei echipe de 8 persoane intr-o companie de consultanta. Maria, cel mai bun consultant al tau timp de 3 ani, a inceput sa rateze termene, sa fie distrasa in sedinte si sa livreze rapoarte incomplete in ultimele 6 saptamani. Nu a existat nicio schimbare salariala sau organizatorica recenta. Colegii au observat si incep sa fie afectati de moralul echipei. Un client important a reclamat intarzieri.",
       "question": "Care este primul pas pe care il faci ca manager?",
@@ -20,7 +20,7 @@
     "id": "c9fa0bad-5316-49d1-95ff-80331e01aea0",
     "domain": "Team Management",
     "title": "Conflictul dintre doi membri cheie",
-    "difficulty_level": 1,
+    "difficulty_level": 3,
     "content_data": {
       "context": "Andrei (senior developer) si Ioana (product manager) se afla intr-un conflict deschis de 2 saptamani privind prioritizarea functionalitatilor. Andrei sustine ca Ioana schimba cerintele constant, Ioana afirma ca Andrei refuza sa se adapteze la nevoile clientilor. Conflictul a afectat comunicarea in echipa si a incetinit un sprint. Ambii sunt performeri-cheie pe care nu iti permiti sa ii pierzi.",
       "question": "Cum gestionezi acest conflict?",
@@ -37,7 +37,7 @@
     "id": "adacada8-5064-4a7f-84e7-d86924c82475",
     "domain": "Organizational Innovation",
     "title": "Inovatia blocata de cultura organizationala",
-    "difficulty_level": 1,
+    "difficulty_level": 3,
     "content_data": {
       "context": "Esti directorul de operatiuni al unui retailer traditional cu 200 de angajati. Ai propus implementarea unui sistem de gestionare a stocurilor bazat pe AI, care ar reduce pierderile cu 30%. Consiliul de administratie a aprobat bugetul, dar echipele de teren rezista activ: a functionat intotdeauna manual, nu avem timp sa invatam, sistemele IT nu functioneaza niciodata la noi. Fara adoptia echipelor, proiectul va esua.",
       "question": "Descrie in 3-5 pasi concreti strategia ta de management al schimbarii pentru a obtine adoptia echipelor de teren. Mentioneaza cel putin: cum implici oamenii, cum gestionezi rezistenta si cum masori succesul.",
@@ -49,7 +49,7 @@
     "id": "fac1b3f0-48b3-4170-a31e-28b0def08c88",
     "domain": "Communication",
     "title": "Comunicarea unei vesti proaste echipei",
-    "difficulty_level": 1,
+    "difficulty_level": 3,
     "content_data": {
       "context": "Compania a decis restructurarea unui departament, ceea ce inseamna ca 3 posturi din echipa ta de 10 oameni vor fi eliminate in 60 de zile. Tu ai aflat ieri, in confidentialitate, de la directorul general. Procesul de selectie a posturilor afectate nu a inceput inca. Luni dimineata ai sedinta saptamanala cu echipa ta.",
       "question": "Ce faci luni dimineata in sedinta cu echipa?",
@@ -66,7 +66,7 @@
     "id": "03e53d85-b664-470d-832d-6df8357dc96b",
     "domain": "Team Management",
     "title": "Delegarea sarcinii critice",
-    "difficulty_level": 1,
+    "difficulty_level": 3,
     "content_data": {
       "context": "Esti managerul unui departament de marketing si trebuie sa prezinti o strategie de rebranding unui client major peste 3 saptamani. Ai doua optiuni pentru a coordona proiectul: Radu - experimentat, dar supradincarcat; si Cristina - talentata, mai putin experimentata, disponibila, dar nu a mai coordonat un proiect de aceasta anvergura.",
       "question": "Pe cine alegi sa coordoneze proiectul si cum il/o sustii?",
@@ -83,7 +83,7 @@
     "id": "506d2676-4d94-446a-b04e-3b0ba3fe1270",
     "domain": "Communication",
     "title": "Feedback negativ pentru un coleg senior",
-    "difficulty_level": 1,
+    "difficulty_level": 2,
     "content_data": {
       "context": "Dan are 15 ani in companie si este respectat. Ai observat ca in ultimele 3 sedinte, Dan a intrerupt colegii mai tineri si a respins idei noi cu comentarii de tip 'am mai incercat asta', creand o dinamica in care juniorii nu mai indraznesc sa vorbeasca. Comportamentul lui sufoca inovatia echipei.",
       "question": "Scrie exact ce i-ai spune lui Dan intr-o discutie fata in fata. Foloseste un limbaj specific, non-acuzator, bazat pe comportamente observabile, si propune o schimbare concreta.",
@@ -95,7 +95,7 @@
     "id": "4ff638ab-1289-45bd-97f7-2e906ba5b005",
     "domain": "Team Management",
     "title": "Decizia de promovare in conditii de ambiguitate",
-    "difficulty_level": 1,
+    "difficulty_level": 3,
     "content_data": {
       "context": "Ai un post de team lead disponibil. Alina: excelenta tehnic, introvertita, putin experimentata in coordonare, dar cu potential. George: relatii excelente, comunicator natural, performanta tehnica medie, fara initiative proprii. Rolul presupune 60% coordonare si 40% livrare tehnica.",
       "question": "Pe cine promovezi si de ce?",
@@ -112,7 +112,7 @@
     "id": "2a98478b-62d9-40cd-99a1-76c64f6eac39",
     "domain": "Organizational Innovation",
     "title": "Echipa refuza o directiva venita de sus",
-    "difficulty_level": 1,
+    "difficulty_level": 2,
     "content_data": {
       "context": "Top managementul a decis adoptarea metodologiei OKR. Echipa ta este sceptica: considera ca e doar birocratie si nu au timp de invatat. Tu crezi in beneficiile OKR si trebuie sa facilitezi adoptarea fara sa pierzi credibilitatea.",
       "question": "Descrie cum conduci prima sedinta de introducere a OKR cu echipa ta. Ce spui, cum gestionezi scepticismul si ce actiuni concrete propui pentru prima luna?",
@@ -124,7 +124,7 @@
     "id": "17de595a-f82f-42b0-a344-510853f5e94e",
     "domain": "Communication",
     "title": "Eroarea critica si responsabilitatea echipei",
-    "difficulty_level": 1,
+    "difficulty_level": 3,
     "content_data": {
       "context": "Echipa a livrat un raport financiar cu o eroare majora. Clientul a reclamat la DG. DG te intreaba: 'Cine a gresit?'. Tu stii ca Bogdan, un angajat tanar aflat intr-o perioada dificila, a facut eroarea si a recunoscut-o in privat.",
       "question": "Ce raspunzi directorului general?",

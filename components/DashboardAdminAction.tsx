@@ -18,6 +18,12 @@ export default function DashboardAdminAction() {
       >
         Add Questionnaire
       </Link>
+      <Link
+        href="/admin/company-list"
+        className="inline-flex items-center rounded-full border border-[#cdd7c1] px-5 py-3 text-sm font-semibold text-[#2d5a3f] transition hover:border-[#a6b79d]"
+      >
+        Manage Company List
+      </Link>
     </div>
   );
 }
